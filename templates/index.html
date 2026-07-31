@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>具身智能·生活体验创意站</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+    <div id="app">
+        <!-- 顶部导航 -->
+        <header class="header">
+            <div class="container header-inner">
+                <h1 class="logo">🤖 具身智能·生活体验创意站</h1>
+                <div class="header-actions">
+                    <span id="stats-display" class="stats-badge"></span>
+                    <button id="btn-login" class="btn btn-primary" onclick="showLogin()">登录</button>
+                    <div id="user-info" class="user-info hidden">
+                        <span id="user-avatar"></span>
+                        <span id="user-name"></span>
+                        <span id="user-title" class="title-badge"></span>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <!-- 主内容区 -->
+        <main class="container main">
+            <!-- 功能标签页 -->
+            <nav class="tabs">
+                <button class="tab active" data-tab="feed" onclick="switchTab('feed')">🏠 广场</button>
+                <button class="tab" data-tab="submit" onclick="switchTab('submit')">✍️ 提交想法</button>
+                <button class="tab" data-tab="rank" onclick="switchTab('rank')">🏆 排行榜</button>
+                <button class="tab" data-tab="rewards" onclick="switchTab('rewards')">🎁 奖励说明</button>
+            </nav>
+
+            <!-- 广场页 -->
+            <section id="tab-feed" class="tab-content active">
+                <!-- 每日随机痛点 -->
+                <div id="random-idea-card" class="random-idea hidden"></div>
+
+                <div class="feed-toolbar">
+                    <div class="category-filter">
+                        <button class="cat-btn active" data-cat="全部">全部</button>
+                        <button class="cat-btn" data-cat="衣">👕 衣</button>
+                        <button class="cat-btn" data-cat="食">🍜 食</button>
+                        <button class="cat-btn" data-cat="住">🏠 住</button>
+                        <button class="cat-btn" data-cat="行">🚗 行</button>
+                        <button class="cat-btn" data-cat="购物结账">🛒 购物结账</button>
+                        <button class="cat-btn" data-cat="办公工作">💼 办公工作</button>
+                        <button class="cat-btn" data-cat="公共服务">🏪 公共服务</button>
+                        <button class="cat-btn" data-cat="其他">📌 其他</button>
+                    </div>
+                    <div class="sort-filter">
+                        <button class="sort-btn active" data-sort="latest">最新</button>
+                        <button class="sort-btn" data-sort="hot">最热</button>
+                        <button class="sort-btn" data-sort="empathy">最多同感</button>
+                    </div>
+                </div>
+                <div id="ideas-list" class="ideas-list">
+                    <div class="loading">加载中...</div>
+                </div>
+            </section>
+
+            <!-- 发布页 -->
+            <section id="tab-submit" class="tab-content">
+                <div class="submit-form card">
+                    <h2>📝 提交你的生活体验想法</h2>
+                    <p class="form-hint">凡是你在现实环境中感知到的不便——做事流程、交互体验、服务方式等，任何让你觉得不舒服或想要更便捷的想法，都可以提交！</p>
+                    <div class="form-group">
+                        <label>分类</label>
+                        <div class="category-select">
+                            <button class="cat-select-btn active" data-val="衣">👕 衣</button>
+                            <button class="cat-select-btn" data-val="食">🍜 食</button>
+                            <button class="cat-select-btn" data-val="住">🏠 住</button>
+                            <button class="cat-select-btn" data-val="行">🚗 行</button>
+                            <button class="cat-select-btn" data-val="购物结账">🛒 购物结账</button>
+                            <button class="cat-select-btn" data-val="办公工作">💼 办公工作</button>
+                            <button class="cat-select-btn" data-val="公共服务">🏪 公共服务</button>
+                            <button class="cat-select-btn" data-val="其他">📌 其他</button>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>😃 此刻的情绪</label>
+                        <div class="emotion-select">
+                            <button class="emotion-btn" data-val="😡 烦躁">😡 烦躁</button>
+                            <button class="emotion-btn" data-val="😩 无奈">😩 无奈</button>
+                            <button class="emotion-btn" data-val="🤯 离谱">🤯 离谱</button>
+                            <button class="emotion-btn" data-val="😅 将就">😅 将就</button>
+                            <button class="emotion-btn" data-val="🤔 困惑">🤔 困惑</button>
+                            <button class="emotion-btn" data-val="💪 期待">💪 期待</button>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>📍 发生在哪里</label>
+                        <div class="location-select">
+                            <button class="loc-btn" data-val="地铁/公交">🚇 地铁/公交</button>
+                            <button class="loc-btn" data-val="超市/商场">🏬 超市/商场</button>
+                            <button class="loc-btn" data-val="医院">🏥 医院</button>
+                            <button class="loc-btn" data-val="小区/家里">🏘️ 小区/家里</button>
+                            <button class="loc-btn" data-val="公司/学校">🏫 公司/学校</button>
+                            <button class="loc-btn" data-val="餐厅">🍽️ 餐厅</button>
+                            <button class="loc-btn" data-val="银行/办事大厅">🏦 银行/办事大厅</button>
+                            <button class="loc-btn" data-val="其他">📌 其他</button>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>🎬 场景描述（你在哪、在做什么）</label>
+                        <textarea id="input-scene" placeholder="例如：超市买完东西去结账，排了很长的队，好不容易轮到自己，还要扫码、装袋、核对小票..."></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label>😤 哪里不舒服 / 痛点是什么</label>
+                        <textarea id="input-pain" placeholder="例如：整个结账流程太繁琐，等待时间长，扫码支付还要打开好几个页面，装袋也手忙脚乱..."></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label>✨ 你希望是怎样的体验</label>
+                        <textarea id="input-effect" placeholder="例如：希望拿完东西直接走人，自动识别商品并扣款，像无感通行一样自然..."></textarea>
+                    </div>
+                    <button class="btn btn-primary btn-block" onclick="submitIdea()">
+                        🚀 提交想法
+                    </button>
+                </div>
+            </section>
+
+            <!-- 排行榜页 -->
+            <section id="tab-rank" class="tab-content">
+                <div class="card">
+                    <h2>🏆 创意排行榜</h2>
+                    <p class="form-hint">根据获得的点赞数排名，点赞越多称号越炫酷！</p>
+                    <div id="leaderboard-list" class="leaderboard"></div>
+                </div>
+                <div class="card" style="margin-top:16px">
+                    <h2>📍 痛点热区</h2>
+                    <p class="form-hint">哪些地方让大家最不舒服？</p>
+                    <div id="location-stats" class="location-stats"></div>
+                </div>
+            </section>
+
+            <!-- 奖励说明页 -->
+            <section id="tab-rewards" class="tab-content">
+                <div class="card">
+                    <h2>🎁 奖励阶梯说明</h2>
+                    <p class="form-hint">你发布的点子每获得一个点赞，都会累计到你的总获赞数。达到对应阶梯即可解锁专属称号！</p>
+                    <div id="reward-tiers" class="reward-tiers"></div>
+                </div>
+            </section>
+        </main>
+
+        <!-- 登录弹窗 -->
+        <div id="login-modal" class="modal hidden">
+            <div class="modal-content">
+                <h3>👋 欢迎来到具身智能·生活体验创意站</h3>
+                <p>取一个昵称，分享你对现实世界体验的一切想法！</p>
+                <div class="form-group">
+                    <label>选择头像</label>
+                    <div class="avatar-select">
+                        <button class="avatar-btn active" data-avatar="😊">😊</button>
+                        <button class="avatar-btn" data-avatar="😎">😎</button>
+                        <button class="avatar-btn" data-avatar="🤔">🤔</button>
+                        <button class="avatar-btn" data-avatar="🚀">🚀</button>
+                        <button class="avatar-btn" data-avatar="🌟">🌟</button>
+                        <button class="avatar-btn" data-avatar="🐱">🐱</button>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>昵称</label>
+                    <input type="text" id="input-nickname" placeholder="输入你的昵称" maxlength="20">
+                </div>
+                <button class="btn btn-primary btn-block" onclick="doRegister()">开始使用</button>
+                <button class="btn btn-ghost" onclick="hideLogin()">取消</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="/static/js/app.js"></script>
+</body>
+</html>

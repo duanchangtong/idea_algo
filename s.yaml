@@ -1,0 +1,44 @@
+edition: 3.0.0
+name: painpoint-platform
+access: default
+
+vars:
+  region: cn-hangzhou
+  functionName: painpoint-platform
+
+resources:
+  painpoint:
+    component: fc3
+    props:
+      region: ${vars.region}
+      functionName: ${vars.functionName}
+      description: "具身智能·生活体验创意站"
+      runtime: custom.debian10
+      handler: index.handler
+      timeout: 120
+      memorySize: 512
+      cpu: 0.35
+      diskSize: 512
+      instanceConcurrency: 100
+      code: ./
+      customRuntimeConfig:
+        command:
+          - bash
+        args:
+          - /code/bootstrap
+        port: 9000
+      environmentVariables:
+        BAILIAN_TOKEN_API_KEY: ${env.BAILIAN_TOKEN_API_KEY}
+        BAILIAN_BASE_URL: ${env.BAILIAN_BASE_URL}
+        FC_MODE: "true"
+      triggers:
+        - triggerName: http-trigger
+          triggerType: http
+          triggerConfig:
+            authType: anonymous
+            methods:
+              - GET
+              - POST
+              - PUT
+              - DELETE
+              - OPTIONS
