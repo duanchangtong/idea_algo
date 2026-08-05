@@ -7,14 +7,14 @@ load_dotenv()
 
 class Config:
     # 数据库配置（FC环境下使用/tmp目录，本地使用项目目录）
-    _is_fc = os.getenv("FC_MODE", "") == "true"
+    _is_fc = os.getenv("APP_FC_MODE", "") == "true"
     _db_dir = "/tmp" if _is_fc else os.path.dirname(os.path.abspath(__file__))
     DATABASE = os.path.join(_db_dir, "painpoints.db")
 
     # 百炼API配置
     BAILIAN_API_KEY = os.getenv("BAILIAN_TOKEN_API_KEY", "")
     BAILIAN_BASE_URL = os.getenv("BAILIAN_BASE_URL", "https://dashscope.aliyuncs.com/compatible-mode/v1")
-    MODEL_NAME = "qwen3-max-preview"
+    MODEL_NAME = "qwen3.8-max"
 
     # 点赞奖励阶梯配置
     REWARD_TIERS = [

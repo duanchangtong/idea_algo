@@ -1,19 +1,24 @@
 #!/bin/bash
 # 阿里云函数计算 FC Custom Runtime 启动入口
-# FC 会通过 FC_SERVER_PORT 环境变量指定监听端口（默认9000）
 
 export FC_SERVER_PORT=${FC_SERVER_PORT:-9000}
-
-# 安装依赖（首次冷启动时）
-if [ ! -d "/tmp/deps_installed" ]; then
-    pip install -r /code/requirements.txt -t /code/python_packages -q 2>/dev/null
-    touch /tmp/deps_installed
-fi
-
 export PYTHONPATH=/code/python_packages:$PYTHONPATH
 
-# 启动 Flask 应用（生产模式，监听FC指定端口）
-exec python -c "
+# 自动选择最高版本 Python（Flask 3.1 需要 3.9+）
+PYTHON_BIN=""
+for p in python3.12 python3.11 python3.10 python3.9; do
+    if command -v $p &> /dev/null; then
+        PYTHON_BIN=$p
+        break
+    fi
+done
+if [ -z "$PYTHON_BIN" ]; then
+    PYTHON_BIN=python3
+fi
+
+echo "Using Python: $PYTHON_BIN ($($PYTHON_BIN --version 2>&1))"
+
+exec $PYTHON_BIN -c "
 from app import app
 import os
 port = int(os.environ.get('FC_SERVER_PORT', 9000))

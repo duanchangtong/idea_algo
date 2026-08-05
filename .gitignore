@@ -31,6 +31,10 @@ ENV/
 .env
 *.local
 
+# 部署配置（含API密钥）
+s.yaml
+deploy.js
+
 # 日志
 *.log
 
