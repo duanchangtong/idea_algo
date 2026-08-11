@@ -41,3 +41,4 @@ deploy.js
 # 操作系统
 Thumbs.db
 .DS_Store
+python_packages/

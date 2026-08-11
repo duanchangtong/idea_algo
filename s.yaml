@@ -13,7 +13,7 @@ resources:
       region: ${vars.region}
       functionName: ${vars.functionName}
       description: "具身智能·生活体验创意站"
-      runtime: custom.debian10
+      runtime: custom.debian12
       handler: index.handler
       timeout: 120
       memorySize: 512
@@ -28,9 +28,9 @@ resources:
           - /code/bootstrap
         port: 9000
       environmentVariables:
-        BAILIAN_TOKEN_API_KEY: ${env.BAILIAN_TOKEN_API_KEY}
-        BAILIAN_BASE_URL: ${env.BAILIAN_BASE_URL}
-        FC_MODE: "true"
+        BAILIAN_TOKEN_API_KEY: sk-sp-H.PYDDY.H90i.MEQCICrl02Znf3GU4a7kJgFCJ2d36NfbYtELeCZn5_gjKvuBAiB5KOP6SNTl1QihbqdP705mIFL7URwz3OoBQbWjVKAaCw
+        BAILIAN_BASE_URL: https://dashscope.aliyuncs.com/compatible-mode/v1
+        APP_FC_MODE: "true"
       triggers:
         - triggerName: http-trigger
           triggerType: http
